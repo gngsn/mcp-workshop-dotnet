@@ -8,14 +8,19 @@ Refer to the [README](../README.md#prerequisites) doc for preparation.
 
 ## Getting Started
 
-- [Check GitHub Copilot Agent Mode](#check-github-copilot-agent-mode)
-- [Prepare Custom Instructions](#prepare-custom-instructions)
-- [Prepare MCP Server Development](#prepare-mcp-server-development)
-- [Develop To-do List Management Logic](#develop-to-do-list-management-logic)
-- [Remove API Logic](#remove-api-logic)
-- [Convert to MCP Server](#convert-to-mcp-server)
-- [Run MCP Server](#run-mcp-server)
-- [Test MCP Server](#test-mcp-server)
+- [02: MCP Server](#02-mcp-server)
+  - [Prerequisites](#prerequisites)
+  - [Getting Started](#getting-started)
+  - [Check GitHub Copilot Agent Mode](#check-github-copilot-agent-mode)
+  - [Start MCP Servers – Awesome Copilot](#start-mcp-servers--awesome-copilot)
+  - [Configure Beast Mode](#configure-beast-mode)
+  - [Prepare Custom Instructions](#prepare-custom-instructions)
+  - [Prepare MCP Server Development](#prepare-mcp-server-development)
+  - [Develop To-do List Management Logic](#develop-to-do-list-management-logic)
+  - [Remove API Logic](#remove-api-logic)
+  - [Convert to MCP Server](#convert-to-mcp-server)
+  - [Run MCP Server](#run-mcp-server)
+  - [Test MCP Server](#test-mcp-server)
 
 ## Check GitHub Copilot Agent Mode
 

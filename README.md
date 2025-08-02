@@ -42,10 +42,15 @@ This is a self-paced workshop. Follow the step-by-step instructions in the works
 | Step                                | Link                                                      |
 |-------------------------------------|-----------------------------------------------------------|
 | 00: Development Environment Setup   | [00-setup.md](./docs/00-setup.md)                         |
+| &nbsp;&nbsp;• .NET 9, VS Code, Azure CLI, Docker 등 개발 환경 준비
 | 01: Monkey App Development with MCP | [01-monkey-app.md](./docs/01-monkey-app.md)               |
+| &nbsp;&nbsp;• MCP 프로토콜 기반 콘솔 앱 개발 및 Monkey 데이터 관리 기능 구현
 | 02: MCP Server Development          | [02-mcp-server.md](./docs/02-mcp-server.md)               |
+| &nbsp;&nbsp;• ASP.NET Core Minimal API로 MCP 서버(할 일 관리) 구현, EF Core/SQLite 연동, MCP 툴 등록
 | 03: MCP Remote Server Deployment    | [03-mcp-remote-server.md](./docs/03-mcp-remote-server.md) |
+| &nbsp;&nbsp;• MCP 서버를 Azure Container Apps에 배포, 원격 MCP 엔드포인트 구성
 | 04: MCP Client Development          | [04-mcp-client.md](./docs/04-mcp-client.md)               |
+| &nbsp;&nbsp;• Blazor 기반 MCP Todo Client 웹앱 개발, MCP 서버와 연동하여 실시간 할 일 관리
 
 ## Complete Sample
 
