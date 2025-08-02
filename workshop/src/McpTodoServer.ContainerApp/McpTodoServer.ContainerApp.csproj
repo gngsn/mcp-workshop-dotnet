@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>0659f9f0-52f4-4db1-8201-ce0c669ca150</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.18" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.18" />
+    <PackageReference Include="ModelContextProtocol.AspNetCore" Version="0.3.0-preview.3" />
+  </ItemGroup>
+
+</Project>
