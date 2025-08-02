@@ -8,13 +8,16 @@ Refer to the [README](../README.md#prerequisites) doc for preparation.
 
 ## Getting Started
 
-- [Check GitHub Copilot Agent Mode](#check-github-copilot-agent-mode)
-- [Start MCP Server – GitHub](#start-mcp-server--github)
-- [Prepare Custom Instructions](#prepare-custom-instructions)
-- [Scaffold Console App](#scaffold-console-app)
-- [Manage GitHub Repository](#manage-github-repository)
-- [Start MCP Server – Monkey MCP](#start-mcp-server--monkey-mcp)
-- [Develop Monkey App with GitHub Copilot and MCP Servers](#develop-monkey-app-with-github-copilot-and-mcp-servers)
+- [01: Monkey App Development with MCP](#01-monkey-app-development-with-mcp)
+  - [Prerequisites](#prerequisites)
+  - [Getting Started](#getting-started)
+  - [Check GitHub Copilot Agent Mode](#check-github-copilot-agent-mode)
+  - [Start MCP Server – GitHub](#start-mcp-server--github)
+  - [Prepare Custom Instructions](#prepare-custom-instructions)
+  - [Scaffold Console App](#scaffold-console-app)
+  - [Manage GitHub Repository](#manage-github-repository)
+  - [Start MCP Server – Monkey MCP](#start-mcp-server--monkey-mcp)
+  - [Develop Monkey App with GitHub Copilot and MCP Servers](#develop-monkey-app-with-github-copilot-and-mcp-servers)
 
 ## Check GitHub Copilot Agent Mode
 
@@ -89,7 +92,13 @@ Refer to the [README](../README.md#prerequisites) doc for preparation.
 
     ```text
     Push the current changes to the `main` branch of the repository.
+    Make sure to include the `workshop` directory before pushing the changes.
     ```
+
+> [!NOTE]
+> ✍🏻  문구 추가
+> Make sure to include the `workshop` directory before pushing the changes.
+
 
 1. Enter the following prompt to GitHub Copilot to generate an issue on the repository.
 
@@ -102,7 +111,7 @@ Refer to the [README](../README.md#prerequisites) doc for preparation.
     - Add some details about how we may go about implementing this and a checklist for what we will need to do.
     ```
 
-1. Assign `@Copilot` to the issue and watch what is happening.
+2. Assign `@Copilot` to the issue and watch what is happening.
 
 ## Start MCP Server &ndash; Monkey MCP
 
