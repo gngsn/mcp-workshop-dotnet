@@ -1,164 +1,202 @@
 using MyMonkeyApp;
+using System.Text;
 
-// Display welcome screen with ASCII art
-AsciiArt.DisplayWelcome();
+Console.OutputEncoding = Encoding.UTF8;
 
-// Main application loop
-bool isRunning = true;
-while (isRunning)
-{
-    try
-    {
-        DisplayMenu();
-        var choice = GetUserChoice();
-
-        switch (choice)
-        {
-            case 1:
-                await ListAllMonkeysAsync();
-                break;
-            case 2:
-                await GetMonkeyByNameAsync();
-                break;
-            case 3:
-                await GetRandomMonkeyAsync();
-                break;
-            case 4:
-                isRunning = false;
-                DisplayExitMessage();
-                break;
-            default:
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("❌ Invalid choice. Please select a number between 1-4.");
-                Console.ResetColor();
-                break;
-        }
-
-        if (isRunning)
-        {
-            Console.WriteLine("\nPress any key to continue...");
-            Console.ReadKey();
-        }
-    }
-    catch (Exception ex)
-    {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($"❌ An error occurred: {ex.Message}");
-        Console.ResetColor();
-        Console.WriteLine("\nPress any key to continue...");
-        Console.ReadKey();
-    }
-}
-
-/// <summary>
-/// Displays the main menu options to the user.
-/// </summary>
-static void DisplayMenu()
-{
-    Console.Clear();
+// Enhanced ASCII Art Arrays
+string[] monkeyArt = [
+    """
+        🐒 Welcome to the Monkey Console App! 🐒
     
-    // Randomly display ASCII art 30% of the time
-    var random = new Random();
-    if (random.NextDouble() < 0.3)
-    {
-        AsciiArt.DisplayRandomMonkeyArt();
-    }
+           .-.   .-.     .--.
+          | OO| | OO|   / _.-' .-.   .-.
+          |   | |   |   \  '-. '-'   '-'
+          '^^^' '^^^'    '--'
+        """,
+    """
+        🐵 Discover the Amazing World of Primates! 🐵
+    
+             ."-"-.              /      \
+           |  ^  ^  |
+           |    >   |
+           |   ---  |
+            \      /
+             '-..-'
+        """,
+    """
+        🙊 Monkey Data Explorer 🙊
+    
+            _____
+           (     )
+         __/  o  o  \__
+        (  \   <    /  )
+         \__) '---' (__/
+           |       |
+           |_______|
+        """
+];
 
+string currentArt = monkeyArt[0];
+
+// Display welcome message with ASCII art
+Console.Clear();
+Console.ForegroundColor = ConsoleColor.Yellow;
+Console.WriteLine(currentArt);
+Console.ForegroundColor = ConsoleColor.Green;
+Console.WriteLine("===============================================");
+Console.WriteLine("   🌿 Monkey Species Information System 🌿   ");
+Console.WriteLine("===============================================");
+Console.ResetColor();
+Console.WriteLine();
+
+bool keepRunning = true;
+int artIndex = 0;
+
+while (keepRunning)
+{
+    DisplayMenu();
+    
     Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.WriteLine("┌─────────────────────────────────────┐");
-    Console.WriteLine("│           MONKEY EXPLORER           │");
-    Console.WriteLine("├─────────────────────────────────────┤");
-    Console.WriteLine("│ 1. 📋 List all monkeys              │");
-    Console.WriteLine("│ 2. 🔍 Find monkey by name           │");
-    Console.WriteLine("│ 3. 🎲 Get random monkey             │");
-    Console.WriteLine("│ 4. 🚪 Exit application              │");
-    Console.WriteLine("└─────────────────────────────────────┘");
+    Console.Write("Enter your choice (1-6): ");
     Console.ResetColor();
     
-    Console.ForegroundColor = ConsoleColor.Yellow;
-    Console.WriteLine($"\n📊 Random monkeys accessed: {MonkeyHelper.RandomMonkeyAccessCount}");
-    Console.ResetColor();
+    string? input = Console.ReadLine();
+    Console.WriteLine();
+
+    switch (input?.Trim())
+    {
+        case "1":
+            ListAllMonkeys();
+            break;
+        case "2":
+            GetMonkeyByName();
+            break;
+        case "3":
+            GetRandomMonkey();
+            // Cycle through ASCII art for fun
+            artIndex = (artIndex + 1) % monkeyArt.Length;
+            currentArt = monkeyArt[artIndex];
+            break;
+        case "4":
+            ShowStatistics();
+            break;
+        case "5":
+            SearchMonkeys();
+            break;
+        case "6":
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("🐒 Thanks for exploring the monkey world! Goodbye! 🐒");
+            Console.ResetColor();
+            keepRunning = false;
+            break;
+        default:
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("❌ Invalid choice. Please enter a number between 1 and 6.");
+            Console.ResetColor();
+            break;
+    }
+
+    if (keepRunning)
+    {
+        Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.WriteLine("Press any key to continue...");
+        Console.ResetColor();
+        Console.ReadKey();
+        Console.Clear();
+        
+        // Display current ASCII art
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine(currentArt);
+        Console.ResetColor();
+    }
 }
 
-/// <summary>
-/// Gets the user's menu choice and validates input.
-/// </summary>
-/// <returns>The user's choice as an integer.</returns>
-static int GetUserChoice()
+void DisplayMenu()
 {
     Console.ForegroundColor = ConsoleColor.White;
-    Console.Write("\nEnter your choice (1-4): ");
+    Console.WriteLine("┌─────────────────────────────────────────┐");
+    Console.WriteLine("│              🐵 MAIN MENU 🐵              │");
+    Console.WriteLine("├─────────────────────────────────────────┤");
+    Console.WriteLine("│ 1. 📋 List all monkeys                 │");
+    Console.WriteLine("│ 2. 🔍 Get monkey by name               │");
+    Console.WriteLine("│ 3. 🎲 Get random monkey                │");
+    Console.WriteLine("│ 4. 📊 Show statistics                  │");
+    Console.WriteLine("│ 5. 🔎 Search monkeys                   │");
+    Console.WriteLine("│ 6. 🚪 Exit                             │");
+    Console.WriteLine("└─────────────────────────────────────────┘");
     Console.ResetColor();
-    
-    if (int.TryParse(Console.ReadLine(), out int choice))
-    {
-        return choice;
-    }
-    
-    return -1; // Invalid choice
+    Console.WriteLine();
 }
 
-/// <summary>
-/// Lists all available monkey species in a formatted table.
-/// </summary>
-static async Task ListAllMonkeysAsync()
+void ListAllMonkeys()
 {
-    Console.Clear();
     Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine("🐒 ALL MONKEY SPECIES 🐒");
-    Console.WriteLine(new string('=', 80));
+    Console.WriteLine("🌟 === ALL MONKEY SPECIES === 🌟");
     Console.ResetColor();
+    Console.WriteLine();
 
     var monkeys = MonkeyHelper.GetAllMonkeys();
     
-    Console.ForegroundColor = ConsoleColor.Yellow;
-    Console.WriteLine($"{"Name",-25} {"Location",-30} {"Population",-12} {"Status",-15}");
-    Console.WriteLine(new string('-', 80));
-    Console.ResetColor();
-
-    foreach (var monkey in monkeys)
+    if (!monkeys.Any())
     {
-        var statusColor = monkey.ConservationStatus switch
-        {
-            "Endangered" => ConsoleColor.Red,
-            "Vulnerable" => ConsoleColor.DarkYellow,
-            "Least Concern" => ConsoleColor.Green,
-            _ => ConsoleColor.White
-        };
-
-        Console.Write($"{monkey.Name,-25} {monkey.Location,-30} ");
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.Write($"{monkey.Population,-12:N0} ");
-        Console.ForegroundColor = statusColor;
-        Console.WriteLine($"{monkey.ConservationStatus,-15}");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("⚠️  No monkeys found in the database.");
         Console.ResetColor();
+        return;
     }
 
-    Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine($"\n📈 Total species: {monkeys.Count}");
-    Console.ResetColor();
+    for (int i = 0; i < monkeys.Count; i++)
+    {
+        var monkey = monkeys[i];
+        var statusColor = GetConservationStatusColor(monkey.ConservationStatus);
+        
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.Write($"{i + 1:D2}. ");
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Write($"{monkey.Name}");
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.Write($" ({monkey.Species})");
+        Console.WriteLine();
+        
+        Console.ForegroundColor = ConsoleColor.DarkGray;
+        Console.Write("    📍 ");
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.Write($"{monkey.Location}");
+        
+        Console.ForegroundColor = ConsoleColor.DarkGray;
+        Console.Write(" | 👥 ");
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.Write($"{monkey.Population:N0}");
+        
+        Console.ForegroundColor = ConsoleColor.DarkGray;
+        Console.Write(" | ");
+        Console.ForegroundColor = statusColor;
+        Console.WriteLine($"{monkey.ConservationStatus}");
+        
+        Console.ResetColor();
+    }
     
-    await Task.CompletedTask; // Simulating async operation
+    Console.WriteLine();
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.WriteLine($"📊 Total species: {monkeys.Count}");
+    Console.ResetColor();
 }
 
-/// <summary>
-/// Gets detailed information about a specific monkey by name.
-/// </summary>
-static async Task GetMonkeyByNameAsync()
+void GetMonkeyByName()
 {
-    Console.Clear();
     Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine("🔍 FIND MONKEY BY NAME 🔍");
-    Console.WriteLine(new string('=', 40));
+    Console.WriteLine("🔍 === FIND MONKEY BY NAME === 🔍");
     Console.ResetColor();
-
-    Console.ForegroundColor = ConsoleColor.White;
+    Console.WriteLine();
+    
+    Console.ForegroundColor = ConsoleColor.Cyan;
     Console.Write("Enter monkey name: ");
     Console.ResetColor();
     
-    var searchName = Console.ReadLine();
-
-    if (string.IsNullOrWhiteSpace(searchName))
+    string? name = Console.ReadLine()?.Trim();
+    
+    if (string.IsNullOrWhiteSpace(name))
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("❌ Please enter a valid monkey name.");
@@ -166,145 +204,194 @@ static async Task GetMonkeyByNameAsync()
         return;
     }
 
-    var monkey = MonkeyHelper.GetMonkeyByName(searchName);
-
-    if (monkey != null)
+    var monkey = MonkeyHelper.GetMonkeyByName(name);
+    
+    if (monkey == null)
     {
-        DisplayMonkeyDetails(monkey);
-    }
-    else
-    {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($"❌ No monkey found with the name '{searchName}'.");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"😔 Monkey with name '{name}' not found.");
         Console.ResetColor();
         
-        // Offer suggestions
-        var suggestions = MonkeyHelper.SearchMonkeys(searchName);
-        if (suggestions.Any())
+        // Suggest similar names
+        var similarMonkeys = MonkeyHelper.SearchMonkeysByName(name).Take(3);
+        if (similarMonkeys.Any())
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\n💡 Did you mean one of these?");
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("💡 Did you mean one of these?");
             Console.ResetColor();
-            foreach (var suggestion in suggestions.Take(3))
+            foreach (var similar in similarMonkeys)
             {
-                Console.WriteLine($"  • {suggestion.Name}");
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine($"   • {similar.Name}");
+                Console.ResetColor();
             }
         }
+        return;
     }
-    
-    await Task.CompletedTask; // Simulating async operation
+
+    DisplayMonkeyDetails(monkey);
 }
 
-/// <summary>
-/// Gets a random monkey and displays its information.
-/// </summary>
-static async Task GetRandomMonkeyAsync()
+void GetRandomMonkey()
 {
-    Console.Clear();
     Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine("🎲 RANDOM MONKEY SELECTION 🎲");
-    Console.WriteLine(new string('=', 40));
+    Console.WriteLine("🎲 === RANDOM MONKEY DISCOVERY === 🎲");
     Console.ResetColor();
-
-    // Display some suspense
-    Console.ForegroundColor = ConsoleColor.Yellow;
-    Console.Write("Selecting a random monkey");
-    for (int i = 0; i < 3; i++)
-    {
-        await Task.Delay(300);
-        Console.Write(".");
-    }
     Console.WriteLine();
-    Console.ResetColor();
 
-    var randomMonkey = MonkeyHelper.GetRandomMonkey();
+    var monkey = MonkeyHelper.GetRandomMonkey();
     
+    if (monkey == null)
+    {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("⚠️  No monkeys available for random selection.");
+        Console.ResetColor();
+        return;
+    }
+
     Console.ForegroundColor = ConsoleColor.Magenta;
-    Console.WriteLine("\n🎉 You got:");
+    Console.WriteLine($"🎉 Random monkey #{MonkeyHelper.RandomAccessCount}:");
     Console.ResetColor();
+    Console.WriteLine();
     
-    DisplayMonkeyDetails(randomMonkey);
+    DisplayMonkeyDetails(monkey);
+}
+
+void ShowStatistics()
+{
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine("📊 === MONKEY STATISTICS === 📊");
+    Console.ResetColor();
+    Console.WriteLine();
+
+    var stats = MonkeyHelper.GetStatistics();
     
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.WriteLine("┌─────────────────────────────────────────┐");
+    Console.WriteLine("│            POPULATION DATA              │");
+    Console.WriteLine("├─────────────────────────────────────────┤");
     Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.WriteLine($"\n📊 This is random monkey #{MonkeyHelper.RandomMonkeyAccessCount}");
+    Console.WriteLine($"│ Total Species:      {stats.TotalSpecies,15} │");
+    Console.WriteLine($"│ Total Population:   {stats.TotalPopulation,15:N0} │");
+    Console.WriteLine($"│ Endangered Species: {stats.EndangeredSpecies,15} │");
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.WriteLine("├─────────────────────────────────────────┤");
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine($"│ Most Populous:      {stats.MostPopulousSpecies,15} │");
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine($"│ Rarest Species:     {stats.RarestSpecies,15} │");
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.WriteLine("└─────────────────────────────────────────┘");
+    Console.ResetColor();
+    Console.WriteLine();
+    
+    Console.ForegroundColor = ConsoleColor.DarkGray;
+    Console.WriteLine($"📅 Last updated: {MonkeyHelper.LastDataRefresh:yyyy-MM-dd HH:mm:ss}");
+    Console.WriteLine($"🎯 Random accesses: {MonkeyHelper.RandomAccessCount}");
     Console.ResetColor();
 }
 
-/// <summary>
-/// Displays detailed information about a specific monkey.
-/// </summary>
-/// <param name="monkey">The monkey to display details for.</param>
-static void DisplayMonkeyDetails(Monkey monkey)
+void SearchMonkeys()
 {
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine("🔎 === SEARCH MONKEYS === 🔎");
+    Console.ResetColor();
     Console.WriteLine();
+    
     Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.WriteLine("┌─────────────────────────────────────┐");
-    Console.WriteLine($"│ {monkey.Name.PadRight(35)} │");
-    Console.WriteLine("├─────────────────────────────────────┤");
+    Console.Write("Enter search term: ");
     Console.ResetColor();
     
-    Console.WriteLine($"│ 🌍 Location: {monkey.Location.PadRight(23)} │");
-    Console.WriteLine($"│ 👥 Population: {monkey.Population.ToString("N0").PadRight(21)} │");
-    Console.WriteLine($"│ 🍃 Diet: {monkey.Diet.PadRight(27)} │");
-    Console.WriteLine($"│ ⏰ Lifespan: {monkey.Lifespan} years{new string(' ', 18 - monkey.Lifespan.ToString().Length)} │");
+    string? searchTerm = Console.ReadLine()?.Trim();
     
-    var statusColor = monkey.ConservationStatus switch
+    if (string.IsNullOrWhiteSpace(searchTerm))
     {
-        "Endangered" => ConsoleColor.Red,
-        "Vulnerable" => ConsoleColor.DarkYellow,
-        "Least Concern" => ConsoleColor.Green,
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("❌ Please enter a valid search term.");
+        Console.ResetColor();
+        return;
+    }
+
+    var results = MonkeyHelper.SearchMonkeysByName(searchTerm).ToList();
+    
+    if (!results.Any())
+    {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"😔 No monkeys found matching '{searchTerm}'.");
+        Console.ResetColor();
+        return;
+    }
+
+    Console.ForegroundColor = ConsoleColor.Magenta;
+    Console.WriteLine($"🎯 Found {results.Count} monkey(s) matching '{searchTerm}':");
+    Console.ResetColor();
+    Console.WriteLine();
+
+    for (int i = 0; i < results.Count; i++)
+    {
+        var monkey = results[i];
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.Write($"{i + 1}. ");
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine(monkey.ToString());
+        Console.ResetColor();
+    }
+}
+
+void DisplayMonkeyDetails(Monkey monkey)
+{
+    var statusColor = GetConservationStatusColor(monkey.ConservationStatus);
+    
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.WriteLine("┌─────────────────────────────────────────┐");
+    Console.WriteLine("│              MONKEY PROFILE             │");
+    Console.WriteLine("├─────────────────────────────────────────┤");
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine($"│ Name: {monkey.Name,-30} │");
+    Console.ForegroundColor = ConsoleColor.Gray;
+    Console.WriteLine($"│ Species: {monkey.Species,-27} │");
+    Console.WriteLine($"│ Location: {monkey.Location,-26} │");
+    Console.WriteLine($"│ Population: {monkey.Population,-24:N0} │");
+    Console.ForegroundColor = statusColor;
+    Console.WriteLine($"│ Status: {monkey.ConservationStatus,-28} │");
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.WriteLine("├─────────────────────────────────────────┤");
+    Console.ForegroundColor = ConsoleColor.Cyan;
+    Console.WriteLine("│ Details:                                │");
+    
+    // Word wrap for details
+    var details = monkey.Details;
+    const int maxWidth = 37;
+    while (details.Length > maxWidth)
+    {
+        int breakPoint = details.LastIndexOf(' ', maxWidth);
+        if (breakPoint == -1) breakPoint = maxWidth;
+        
+        Console.WriteLine($"│ {details[..breakPoint],-37} │");
+        details = details[breakPoint..].TrimStart();
+    }
+    if (details.Length > 0)
+    {
+        Console.WriteLine($"│ {details,-37} │");
+    }
+    
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.WriteLine("└─────────────────────────────────────────┘");
+    Console.ResetColor();
+}
+
+ConsoleColor GetConservationStatusColor(ConservationStatus status)
+{
+    return status switch
+    {
+        ConservationStatus.LeastConcern => ConsoleColor.Green,
+        ConservationStatus.NearThreatened => ConsoleColor.Yellow,
+        ConservationStatus.Vulnerable => ConsoleColor.DarkYellow,
+        ConservationStatus.Endangered => ConsoleColor.Red,
+        ConservationStatus.CriticallyEndangered => ConsoleColor.Magenta,
+        ConservationStatus.ExtinctInWild => ConsoleColor.DarkRed,
+        ConservationStatus.Extinct => ConsoleColor.DarkGray,
         _ => ConsoleColor.White
     };
-    
-    Console.Write("│ 🛡️  Status: ");
-    Console.ForegroundColor = statusColor;
-    Console.Write(monkey.ConservationStatus);
-    Console.ResetColor();
-    Console.WriteLine(new string(' ', 35 - 11 - monkey.ConservationStatus.Length) + "│");
-    
-    Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.WriteLine("├─────────────────────────────────────┤");
-    Console.ResetColor();
-    
-    // Word wrap description
-    var descWords = monkey.Description.Split(' ');
-    var line = "│ ";
-    foreach (var word in descWords)
-    {
-        if (line.Length + word.Length + 1 > 37)
-        {
-            Console.WriteLine(line.PadRight(37) + " │");
-            line = "│ " + word + " ";
-        }
-        else
-        {
-            line += word + " ";
-        }
-    }
-    if (line.Length > 2)
-    {
-        Console.WriteLine(line.PadRight(37) + " │");
-    }
-    
-    Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.WriteLine("└─────────────────────────────────────┘");
-    Console.ResetColor();
-}
-
-/// <summary>
-/// Displays a farewell message when the user exits the application.
-/// </summary>
-static void DisplayExitMessage()
-{
-    Console.Clear();
-    AsciiArt.DisplayRandomMonkeyArt();
-    
-    Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine("Thank you for exploring the world of monkeys! 🐒");
-    Console.WriteLine("Keep learning about our primate friends! 🌟");
-    Console.ResetColor();
-    
-    Console.ForegroundColor = ConsoleColor.Yellow;
-    Console.WriteLine($"\n📊 Final stats: You accessed {MonkeyHelper.RandomMonkeyAccessCount} random monkey(s)!");
-    Console.ResetColor();
 }

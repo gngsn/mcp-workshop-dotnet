@@ -1,51 +1,98 @@
 namespace MyMonkeyApp;
 
 /// <summary>
-/// Represents a monkey species with its characteristics and details.
+/// Represents a monkey species with its characteristics and population data
 /// </summary>
 public class Monkey
 {
     /// <summary>
-    /// Gets or sets the name of the monkey species.
+    /// Common name of the monkey species
     /// </summary>
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the primary location where this monkey species is found.
+    /// Scientific genus classification
+    /// </summary>
+    public string Species { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Geographic habitat range where the monkey is found
     /// </summary>
     public string Location { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the estimated population of this monkey species.
+    /// Estimated current population count
     /// </summary>
     public int Population { get; set; }
 
     /// <summary>
-    /// Gets or sets a brief description of the monkey species.
+    /// Key characteristics and notable features of the monkey
     /// </summary>
-    public string Description { get; set; } = string.Empty;
+    public string Details { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the conservation status of the monkey species.
+    /// Conservation status of the species
     /// </summary>
-    public string ConservationStatus { get; set; } = string.Empty;
+    public ConservationStatus ConservationStatus { get; set; }
 
     /// <summary>
-    /// Gets or sets the diet type of the monkey species.
+    /// Returns a formatted string representation of the monkey
     /// </summary>
-    public string Diet { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Gets or sets the average lifespan of the monkey species in years.
-    /// </summary>
-    public int Lifespan { get; set; }
-
-    /// <summary>
-    /// Returns a string representation of the monkey with its key details.
-    /// </summary>
-    /// <returns>A formatted string containing monkey details.</returns>
+    /// <returns>String containing monkey name and location</returns>
     public override string ToString()
     {
-        return $"{Name} - {Location} (Population: {Population:N0})";
+        return $"{Name} ({Species}) - {Location}";
     }
+
+    /// <summary>
+    /// Gets a detailed description of the monkey including all properties
+    /// </summary>
+    /// <returns>Comprehensive string description</returns>
+    public string GetDetailedDescription()
+    {
+        return $"""
+            Name: {Name}
+            Species: {Species}
+            Location: {Location}
+            Population: {Population:N0}
+            Conservation Status: {ConservationStatus}
+            Details: {Details}
+            """;
+    }
+}
+
+/// <summary>
+/// Enumeration representing different conservation status levels
+/// </summary>
+public enum ConservationStatus
+{
+    LeastConcern,
+    NearThreatened,
+    Vulnerable,
+    Endangered,
+    CriticallyEndangered,
+    ExtinctInWild,
+    Extinct
+}
+
+/// <summary>
+/// Represents statistical information about monkey populations
+/// </summary>
+public class MonkeyStatistics
+{
+    public int TotalSpecies { get; set; }
+    public int TotalPopulation { get; set; }
+    public int EndangeredSpecies { get; set; }
+    public string MostPopulousSpecies { get; set; } = string.Empty;
+    public string RarestSpecies { get; set; } = string.Empty;
+}
+
+/// <summary>
+/// Response model for monkey data from MCP server
+/// </summary>
+public class MonkeyResponse
+{
+    public List<Monkey> Monkeys { get; set; } = new();
+    public MonkeyStatistics Statistics { get; set; } = new();
+    public DateTime LastUpdated { get; set; }
 }
