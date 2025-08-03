@@ -35,7 +35,7 @@
 - Blazor 기반 MCP Todo Client 웹앱 개발
 - MCP 서버와 연동하여 실시간 할 일 관리
 - 웹 UI 예시:
-  ![MCP Todo Client Web UI](./images/mcp-todo-client.png)
+  ![MCP Todo Client Web UI](./docs/images/mcp-todo-client-2.png)
 
 ---
 
