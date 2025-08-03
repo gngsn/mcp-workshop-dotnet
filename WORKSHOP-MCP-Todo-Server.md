@@ -8,10 +8,10 @@
 - MCP 기반 콘솔 앱 개발
 - 원숭이 데이터 관리 기능 구현 (조회, 검색, 랜덤 선택 등)
 - 터미널 출력 예시:
-  ![Monkey App Terminal Output 1](./images/monkey-app-1.png)
-  ![Monkey App Terminal Output 2](./images/monkey-app-2.png)
-  ![Monkey App Terminal Output 3](./images/monkey-app-3.png)
-  ![Monkey App Terminal Output 4](./images/monkey-app-4.png)
+  ![Monkey App Terminal Output 1](./docs/images/monkey-app-1.png)
+  ![Monkey App Terminal Output 2](./docs/images/monkey-app-2.png)
+  ![Monkey App Terminal Output 3](./docs/images/monkey-app-3.png)
+  ![Monkey App Terminal Output 4](./docs/images/monkey-app-4.png)
 
 ## 02: MCP 서버 개발 (할 일 관리)
 - ASP.NET Core Minimal API로 MCP 서버 구현
