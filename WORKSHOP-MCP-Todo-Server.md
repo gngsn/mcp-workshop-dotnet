@@ -28,7 +28,7 @@
 
 ## 03: MCP 서버 원격 배포
 - MCP 서버를 Azure Container Apps에 배포
-- 원격 MCP 엔드포인트(`https://mcptodoserver-containerapp.ashyrock-5b0c11f2.koreacentral.azurecontainerapps.io/mcp`)로 연결
+- 원격 MCP 엔드포인트(Azure Container App)로 연결
 - `.vscode/mcp.json`에 엔드포인트 설정
 
 ## 04: MCP 클라이언트 개발 (Blazor 웹앱)
